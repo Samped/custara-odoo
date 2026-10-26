@@ -1,48 +1,188 @@
 <section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h2 class="oe_slogan">Custara AP</h2>
-    <h3 class="oe_slogan">Approvals and Arc mainnet USDC settlement. Odoo stays the ledger.</h3>
-    <p class="oe_mt32">
-      Custara is the accounts-payable control plane for Odoo shops. Reviewers approve in Custara.
-      Payments write back to the same vendor bill. Settlement is
-      <strong>Arc mainnet USDC</strong> on <a href="https://custara.xyz">custara.xyz</a>.
-      Use <a href="https://testnet.custara.xyz">testnet.custara.xyz</a> only for demos.
-    </p>
-    <p>
-      Use this module on self-hosted Odoo or Odoo.sh. Odoo Online can keep using the JSON-RPC API key
-      from Custara → Connectors without installing the module.
-    </p>
-    <ul>
-      <li>Send vendor bills and credits to Custara Inbox</li>
-      <li>Keep Odoo as the book of record</li>
-      <li>Settle approved bills in Arc mainnet USDC via Circle</li>
-      <li>Dual control, destination allowlist, and hash-chained audit in Custara</li>
-    </ul>
-  </div>
-</section>
+  <style>
+    .ca-wrap { max-width: 980px; margin: 0 auto; padding: 8px 12px 40px; color: #0f172a; font-family: ui-sans-serif, system-ui, sans-serif; }
+    .ca-wrap * { box-sizing: border-box; }
+    .ca-hero { padding: 42px 36px 36px; border-radius: 18px; background:
+      radial-gradient(ellipse 70% 80% at 8% 0%, rgba(13,148,136,.16), transparent 55%),
+      linear-gradient(180deg, #f8fafc 0%, #eef2f6 100%);
+      border: 1px solid #dbe3ea; }
+    .ca-kicker { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #0f766e; margin: 0 0 10px; }
+    .ca-hero h2 { margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; }
+    .ca-hero p { margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: #475569; max-width: 620px; }
+    .ca-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .ca-badge { font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 999px; background: #fff; border: 1px solid #cbd5e1; color: #0f172a; }
+    .ca-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .ca-cta a { display: inline-block; text-decoration: none; font-weight: 700; font-size: 14px; padding: 11px 16px; border-radius: 10px; }
+    .ca-cta .pri { background: #0f172a; color: #fff; }
+    .ca-cta .sec { background: #fff; color: #0f172a; border: 1px solid #cbd5e1; }
+    .ca-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 8px; }
+    .ca-card { background: #0f172a; color: #e2e8f0; border-radius: 14px; padding: 18px 16px 16px; min-height: 148px; }
+    .ca-card h3 { margin: 0 0 8px; font-size: 15px; color: #fff; }
+    .ca-card p { margin: 0; font-size: 13px; line-height: 1.45; color: #94a3b8; }
+    .ca-card strong { color: #5eead4; font-weight: 700; }
+    .ca-section { margin-top: 42px; }
+    .ca-section h3 { margin: 0 0 8px; font-size: 26px; letter-spacing: -0.02em; }
+    .ca-lead { margin: 0 0 18px; color: #475569; font-size: 15px; line-height: 1.5; }
+    .ca-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .ca-step { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 12px; }
+    .ca-step span { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #0f766e; margin-bottom: 6px; }
+    .ca-step p { margin: 0; font-size: 13px; color: #334155; line-height: 1.4; }
+    .ca-shot { margin: 0 0 22px; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; }
+    .ca-shot img { width: 100%; height: auto; display: block; border: 0; }
+    .ca-cap { padding: 14px 18px 16px; }
+    .ca-cap h4 { margin: 0 0 4px; font-size: 16px; }
+    .ca-cap p { margin: 0; font-size: 13px; color: #64748b; line-height: 1.45; }
+    .ca-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ca-ol { margin: 0; padding-left: 18px; color: #334155; font-size: 15px; line-height: 1.65; }
+    .ca-foot { margin-top: 36px; padding: 22px 24px; border-radius: 14px; background: #0f172a; color: #cbd5e1; }
+    .ca-foot h3 { margin: 0 0 8px; color: #fff; font-size: 20px; }
+    .ca-foot a { color: #5eead4; }
+    .ca-foot p { margin: 0 0 6px; font-size: 14px; }
+    @media (max-width: 800px) {
+      .ca-grid, .ca-steps, .ca-pair { grid-template-columns: 1fr 1fr; }
+      .ca-hero h2 { font-size: 30px; }
+    }
+    @media (max-width: 520px) {
+      .ca-grid, .ca-steps, .ca-pair { grid-template-columns: 1fr; }
+    }
+  </style>
 
-<section class="oe_container oe_dark">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Setup</h3>
-    <ol>
-      <li>Install <strong>Custara AP</strong> and update the Apps list.</li>
-      <li>
-        Settings → Accounting → Custara AP: set API URL to
-        <code>https://custara.xyz</code> and paste a Custara Partner API key.
-      </li>
-      <li>Open a vendor bill and click <strong>Send to Custara</strong> (or post the bill to auto-push).</li>
-      <li>Approve and pay in Custara. The payment writes back onto the same Odoo bill.</li>
-    </ol>
-  </div>
-</section>
+  <div class="ca-wrap">
+    <div class="ca-hero">
+      <p class="ca-kicker">Custara AP for Odoo</p>
+      <h2>The AP control plane. Odoo stays the ledger.</h2>
+      <p>
+        Reviewers approve in Custara. Settlement is Arc mainnet USDC on
+        <a href="https://custara.xyz">custara.xyz</a>. The same vendor bill in Odoo
+        receives the write-back. Free LGPL-3 module for Odoo 18.
+      </p>
+      <div class="ca-badges">
+        <span class="ca-badge">Free</span>
+        <span class="ca-badge">Odoo 18</span>
+        <span class="ca-badge">Arc mainnet</span>
+        <span class="ca-badge">Circle Wallets</span>
+        <span class="ca-badge">Dual control</span>
+      </div>
+      <div class="ca-cta">
+        <a class="pri" href="https://custara.xyz">Open custara.xyz</a>
+        <a class="sec" href="https://github.com/Samped/Custara/blob/master/docs/odoo-app.md">Setup guide</a>
+      </div>
+    </div>
 
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Support</h3>
-    <p>
-      Product: <a href="https://custara.xyz">https://custara.xyz</a><br/>
-      Docs: <a href="https://github.com/Samped/Custara/blob/master/docs/odoo-app.md">Odoo app guide</a><br/>
-      Listing source: <a href="https://github.com/Samped/custara-odoo">https://github.com/Samped/custara-odoo</a>
-    </p>
+    <div class="ca-grid">
+      <div class="ca-card">
+        <h3>Ledger in Odoo</h3>
+        <p>Taxes, journals, and reconciliation stay in Accounting. Custara never becomes the book of record.</p>
+      </div>
+      <div class="ca-card">
+        <h3>Dual control</h3>
+        <p>Policy, MFA, and destination allowlist live in Custara before anyone can settle a bill.</p>
+      </div>
+      <div class="ca-card">
+        <h3>Arc mainnet USDC</h3>
+        <p>Approved bills settle on <strong>Arc mainnet</strong> via Circle. No invented transaction hashes.</p>
+      </div>
+      <div class="ca-card">
+        <h3>Write-back</h3>
+        <p>Payment posts onto the same Odoo vendor bill. A failed pay does not mark the bill paid.</p>
+      </div>
+    </div>
+
+    <div class="ca-section">
+      <h3>How it works</h3>
+      <p class="ca-lead">Five steps from a posted vendor bill to a reconciled payment.</p>
+      <div class="ca-steps">
+        <div class="ca-step"><span>01</span><p>Post the vendor bill in Odoo</p></div>
+        <div class="ca-step"><span>02</span><p>Sync or Send to Custara</p></div>
+        <div class="ca-step"><span>03</span><p>Review risk and approve</p></div>
+        <div class="ca-step"><span>04</span><p>Pay Arc mainnet USDC</p></div>
+        <div class="ca-step"><span>05</span><p>Odoo bill reconciles</p></div>
+      </div>
+    </div>
+
+    <div class="ca-section">
+      <h3>Sign in</h3>
+      <p class="ca-lead">Circle email OTP on custara.xyz. No shared AP passwords.</p>
+      <figure class="ca-shot">
+        <img src="screen_login.png" alt="Custara sign-in with work email one-time code"/>
+        <figcaption class="ca-cap">
+          <h4>Work email · one-time code</h4>
+          <p>Controllers sign in at custara.xyz. Production is Arc mainnet. Use testnet.custara.xyz only for demos.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="ca-section">
+      <h3>Connect Odoo</h3>
+      <p class="ca-lead">Point the module at https://custara.xyz and a Partner API key, or connect the database from Custara.</p>
+      <div class="ca-pair">
+        <figure class="ca-shot">
+          <img src="screen_odoo_settings.png" alt="Odoo Settings Accounting Custara AP"/>
+          <figcaption class="ca-cap">
+            <h4>In Odoo</h4>
+            <p>Settings → Accounting → Custara AP. API URL and Partner key. Default production host is https://custara.xyz.</p>
+          </figcaption>
+        </figure>
+        <figure class="ca-shot">
+          <img src="screen_odoo_send.png" alt="Vendor bill with Send to Custara button"/>
+          <figcaption class="ca-cap">
+            <h4>Send to Custara</h4>
+            <p>On a vendor bill or credit, Send to Custara posts the bill into Inbox immediately. Posted bills also sync on the worker.</p>
+          </figcaption>
+        </figure>
+      </div>
+      <figure class="ca-shot">
+        <img src="screen_connect.png" alt="Custara Connectors Odoo card on Arc mainnet"/>
+        <figcaption class="ca-cap">
+          <h4>In Custara</h4>
+          <p>Connectors → Odoo. Database URL, user email, payment journal, and API key. Odoo Online can use this path without installing the module.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="ca-section">
+      <h3>Controls</h3>
+      <p class="ca-lead">Spend limit, destination allowlist, and the workspace payment wallet — before anyone pays.</p>
+      <figure class="ca-shot">
+        <img src="screen_controls.png" alt="Custara wallets spend controls and fund agent"/>
+        <figcaption class="ca-cap">
+          <h4>Wallets and spend controls</h4>
+          <p>Fund the Circle agent, set the daily USDC cap, and allowlist vendor destinations. Live rails show Arc mainnet.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="ca-section">
+      <h3>Pay and write-back</h3>
+      <p class="ca-lead">Settle approved bills in USDC. Custara writes the payment onto the same Odoo bill.</p>
+      <figure class="ca-shot">
+        <img src="screen_pay.png" alt="Custara Pay intents on Arc mainnet"/>
+        <figcaption class="ca-cap">
+          <h4>Pay on Arc mainnet</h4>
+          <p>Intents, pay run, receipts, and wallets. A failed Custara payment does not mark the Odoo bill paid.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="ca-section">
+      <h3>Setup</h3>
+      <ol class="ca-ol">
+        <li>Install <strong>Custara AP</strong> and update the Apps list (Odoo 18, self-hosted or Odoo.sh).</li>
+        <li>Settings → Accounting → Custara AP: API URL <code>https://custara.xyz</code> and a Custara Partner API key from Developers.</li>
+        <li>Open a vendor bill and click <strong>Send to Custara</strong>, or post the bill and wait for sync.</li>
+        <li>Approve and pay in Custara. The payment writes back onto that bill.</li>
+      </ol>
+      <p class="ca-lead" style="margin-top:16px">
+        Odoo Online can skip the module and use Custara → Connectors with a JSON-RPC API key.
+        Demo data only: <a href="https://testnet.custara.xyz">testnet.custara.xyz</a>.
+      </p>
+    </div>
+
+    <div class="ca-foot">
+      <h3>Support</h3>
+      <p>Product: <a href="https://custara.xyz">https://custara.xyz</a></p>
+      <p>Docs: <a href="https://github.com/Samped/Custara/blob/master/docs/odoo-app.md">Odoo app guide</a></p>
+      <p>Listing source: <a href="https://github.com/Samped/custara-odoo">https://github.com/Samped/custara-odoo</a></p>
+    </div>
   </div>
 </section>
